@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hungry
+spec:
+  containers:
+  - name: nom
+    image: registry.access.redhat.com/ubi8/ubi-minimal
+    command:
+      - /bin/sh
+      - -c
+      - |
+        sleep 10
+        tail /dev/zero
+    resources:
+      limits:
+        memory: 100Mi
+
+

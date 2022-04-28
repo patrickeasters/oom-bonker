@@ -1,0 +1,15 @@
+[Unit]
+Description=OOM Bonker Webhook
+After=network-online.target
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+
+Environment=FLASK_APP=webhook
+WorkingDirectory=/opt/bonker
+
+ExecStart=flask run --host=0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: oom-alert
+spec:
+  groups:
+  - name: oom
+    rules:
+    - alert: OOMKilled
+      expr: kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}
