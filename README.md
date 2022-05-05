@@ -40,25 +40,10 @@ Assuming you already have a working Prometheus instance, you can create an alert
 kubectl create -f k8s/prom_rule.yml
 ```
 
-You'll then need to update your Alertmanager config to include a receiver for your new webook and a route to send your OOMKilled alerts to this receiver. For reference, my config is below. 
+You'll then need to update your Alertmanager config to include a receiver for your new webook and a route to send your OOMKilled alerts to this receiver. Be sure to edit this file with the proper IP for your Raspberry Pi.
 
-```yaml
-receivers:
-  - name: oom-bonker
-    webhook_configs:
-      - url: 'http://1.2.3.4:5000/hook'
-        send_resolved: false
-route:
-  group_by:
-    - namespace
-  group_interval: 5m
-  group_wait: 30s
-  receiver: Default
-  repeat_interval: 12h
-  routes:
-    - receiver: oom-bonker
-      match:
-        alertname: OOMKilled
+```bash
+kubectl create -f k8s/alert_config.yml
 ```
 
 ## Test Pod

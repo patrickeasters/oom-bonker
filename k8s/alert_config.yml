@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: oom-bonker
+spec:
+  receivers:
+    - name: oom-bonker
+      webhookConfigs:
+        - url: 'http://1.2.3.4:5000/hook'
+          send_resolved: false
+  route:
+    group_by:
+      - namespace
+    group_interval: 5m
+    group_wait: 30s
+    receiver: oom-bonker
+    repeat_interval: 10m
+    matchers:
+      - name: alertname
+        value: OOMKilled
