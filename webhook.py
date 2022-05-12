@@ -1,7 +1,6 @@
 from flask import Flask, request
 from gpiozero import Servo
 from time import sleep
-from pprint import pprint
 
 SERVO_ACTIVE_DURATION = 0.5
 SERVO_PIN = 18
